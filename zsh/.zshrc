@@ -167,3 +167,10 @@ esac
 # vim:set ft=zsh:
 export PATH="/usr/local/sbin:$PATH"
 
+export WATSONASSISTANTID_WATSONBOT=
+export WATSONAPIKEY_WATSONBOT=
+export SLACKBOTTOKEN_TEST_HARU=
+export SLACKBOTTOKEN_SUB_001=
+export SLACKBOTTOKEN_SUB_002=
+export SLACK_WEBHOOK=
+launchctl setenv GOOGLEAPIKEY 
