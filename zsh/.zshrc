@@ -11,9 +11,6 @@ export LANG=ja_JP.UTF-8
 autoload -Uz colors
 colors
 
-# emacs 風キーバインドにする
-bindkey -e
-
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
@@ -53,7 +50,6 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
 
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-
 
 ########################################
 # vcs_info
@@ -128,6 +124,36 @@ alias mv='mv -i'
 
 alias mkdir='mkdir -p'
 
+# エイリアス - git
+
+alias g='git'
+alias ga='git add'
+alias gd='git diff'
+alias gs='git status'
+alias gp='git push'
+alias gb='git branch'
+alias gst='git status'
+alias gco='git checkout'
+alias gf='git fetch'
+alias gc='git commit'
+
+alias dc='docker-compose'
+
+# エイリアス - fzf
+alias fzf='fzf --preview "bat  --color=always --style=header,grid --line-range :200 {}"'
+export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :200 {}"'
+
+# fbr - checkout git branch
+fbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+alias dox='docker exec -it `docker ps | tail -n +2  | awk '\''{print $NF}'\''|fzf` bash'
+
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
@@ -167,10 +193,8 @@ esac
 # vim:set ft=zsh:
 export PATH="/usr/local/sbin:$PATH"
 
-#export WATSONASSISTANTID_WATSONBOT=
-#export WATSONAPIKEY_WATSONBOT=
-#export SLACKBOTTOKEN_TEST_HARU=
-#export SLACKBOTTOKEN_SUB_001=
-#export SLACKBOTTOKEN_SUB_002=
-#export SLACK_WEBHOOK=
-#launchctl setenv GOOGLEAPIKEY 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# adbを使えるようにする
+export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
+export PATH=$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3
