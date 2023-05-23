@@ -1,93 +1,5 @@
 {
-    // --------------------------------------------------
-    // LaTeX
-    // --------------------------------------------------
-    "latex-workshop.latex.tools": [
-        {
-            "command": "ptex2pdf",
-            "args": [
-                "-l",
-                "-i",
-                "-ot",
-                "-kanji=utf8 -synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error",
-                "%DOCFILE%.tex"
-            ],
-            "name": "Step 1: ptex2pdf"
-        },
-        {
-            "command": "pbibtex",
-            "args": [
-                "%DOCFILE%",
-                "-kanji=utf8"
-            ],
-            "name": "Step 2: pbibtex"
-        },
-        {
-            "command": "ptex2pdf",
-            "args": [
-                "-l",
-                "-i",
-                "-ot",
-                "-kanji=utf8 -synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error",
-                "%DOCFILE%.tex"
-            ],
-            "name": "Step 3: ptex2pdf"
-        },
-        {
-            "command": "ptex2pdf",
-            "args": [
-                "-l",
-                "-i",
-                "-ot",
-                "-kanji=utf8 -synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error",
-                "%DOCFILE%.tex"
-            ],
-            "name": "Step 4: ptex2pdf"
-        }
-    ],
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "toolchain",
-            "tools": [
-                "Step 1: ptex2pdf",
-                "Step 2: pbibtex",
-                "Step 3: ptex2pdf",
-                "Step 4: ptex2pdf"
-            ]
-        }
-    ],
-    "latex-workshop.view.pdf.viewer": "tab",
-    "latex-workshop.latex.autoBuild.run": "never",
-    // --------------------------------------------------
-    // MarkDown
-    // --------------------------------------------------
-    "editor.renderControlCharacters": true, // 制御文字が入ってしまう
-    // --------------------------------------------------
-    // PowerMode
-    // --------------------------------------------------
-    "powermode.enabled": true,
-    "powermode.enableShake": false,
-    "powermode.explosionSize": 30,
-    // --------------------------------------------------
-    // Editor
-    // --------------------------------------------------
-    "diffEditor.ignoreTrimWhitespace": false, // 差分を見るとき空白は無視
-    "files.autoGuessEncoding": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.mypyEnabled": false,
-    "python.linting.pycodestyleEnabled": false,
-    "python.linting.pylamaEnabled": false,
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Args": [
-        "--ignore=E501"
-    ],
-    "remote.SSH.configFile": "/Users/Izumi/.ssh/config",
-    "workbench.iconTheme": "vscode-icons",
-    "python.autoComplete.extraPaths": [
-        "/Users/Izumi/.pyenv/versions/pytorch/lib/python3.6/site-packages"
-    ],
-    "prolog.executablePath": "/Applications/SWI-Prolog.app/Contents/MacOS",
-    "python.pythonPath": "/Users/Izumi/.pyenv/versions/pytorch/bin/python",
+    "workbench.iconTheme": "material-icon-theme",
     // --------------------------------------------------
     // vim
     // --------------------------------------------------
@@ -115,33 +27,29 @@
             "before": ["<Leader>", "O"],
             "after": ["O", "<Esc>"]
         },
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
         // jjでEscと同等
         // {
-            // "before": ["j", "j"],
-            // "after": ["<Esc>"]
+        //     "before": ["j", "j"],
+        //     "after": ["<Esc>"]
         // },
     ],
     "vim.whichwrap": "h,l,<,>,[,],b,s", // 行をまたいで移動
     "vim.hlsearch": true, // 検索結果をハイライト
     "vim.useSystemClipboard": true, // SystemClipboardにヤンク
-    "vim.easymotion": true, // easymotionとその設定たち
-    "vim.easymotionMarkerBackgroundColor": "rgba(0, 0, 0, 0.8)",
-    "vim.easymotionMarkerForegroundColorOneChar": "orange",
-    "vim.easymotionMarkerHeight": 24,
-    "vim.easymotionMarkerYOffset": 5,
     "vim.leader": "<space>",
-    "jupyter.sendSelectionToInteractiveWindow": true,
-    "jupyter.askForKernelRestart": false,
-    "workbench.editorAssociations": [
-        {
-            "viewType": "jupyter.notebook.ipynb",
-            "filenamePattern": "*.ipynb"
-        }
-    ],
-    "workbench.editor.wrapTabs": true,
-    "vsicons.dontShowNewVersionMessage": true,
-    "python.analysis.extraPaths": [
-        "/Users/Izumi/.pyenv/versions/pytorch/lib/python3.6/site-packages"
-    ],
-    "workbench.editor.untitled.hint": "hidden", // <Leader>ってやつ 
+    "editor.tabSize": 8,
+    "editor.cursorStyle": "line",
+    "editor.insertSpaces": false,
+    "editor.lineNumbers": "on",
+    "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+    "editor.wordWrap": "off",
+    "editor.guides.bracketPairs": "active",
 }
