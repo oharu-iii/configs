@@ -129,7 +129,7 @@ alias mkdir='mkdir -p'
 alias g='git'
 alias ga='git add'
 alias gd='git diff'
-alias gs='git status'
+alias gs='git switch'
 alias gp='git push'
 alias gb='git branch'
 alias gst='git status'
@@ -145,11 +145,39 @@ export FZF_CTRL_T_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :200 {}"'
 
 # fbr - checkout git branch
+# fbr() {
+#   local branches branch
+#   branches=$(git branch -vv) &&
+#   branch=$(echo "$branches" | fzf +m) &&
+#   git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+# }
+
+# fbr - checkout git branch (including remote branches)
 fbr() {
   local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
+}
+
+# fadd - stash and diff (ctrl-d) and add (enter)
+fadd() {
+  local out q n addfiles
+  while out=$(
+      git status --short |
+      awk '{if (substr($0,2,1) !~ / /) print $2}' |
+      fzf-tmux --multi --exit-0 --expect=ctrl-d); do
+    q=$(head -1 <<< "$out")
+    n=$[$(wc -l <<< "$out") - 1]
+    addfiles=(`echo $(tail "-$n" <<< "$out")`)
+    [[ -z "$addfiles" ]] && continue
+    if [ "$q" = ctrl-d ]; then
+      git diff --color=always $addfiles | less -R
+    else
+      git add $addfiles
+    fi
+  done
 }
 
 alias dox='docker exec -it `docker ps | tail -n +2  | awk '\''{print $NF}'\''|fzf` bash'
@@ -195,6 +223,18 @@ export PATH="/usr/local/sbin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# bundler のためにrbenvを導入
+[[ -d ~/.rbenv  ]] && \
+  export PATH=${HOME}/.rbenv/bin:${PATH} && \
+  eval "$(rbenv init -)"
+
 # adbを使えるようにする
 export PATH=$PATH:$HOME/Library/Android/sdk/platform-tools
 export PATH=$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3
+
+# Java17用設定
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+
+# Flutter用設定
+export PATH="$PATH":$HOME/work/flutter/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"  # flutterfire

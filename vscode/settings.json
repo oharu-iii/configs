@@ -52,4 +52,7 @@
     "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
     "editor.wordWrap": "off",
     "editor.guides.bracketPairs": "active",
+    "security.workspace.trust.untrustedFiles": "open",
+    "markdown-preview-enhanced.plantumlJarPath": "/Users/izumi.haruno/.vscode/extensions/jebbs.plantuml-2.18.1/plantuml.jar",
+    "dart.flutterSdkPath": "/Users/izumi.haruno/work/flutter",
 }
