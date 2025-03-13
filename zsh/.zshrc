@@ -236,5 +236,5 @@ export PATH=$PATH:$HOME/Library/Android/sdk/build-tools/30.0.3
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 # Flutter用設定
-export PATH="$PATH":$HOME/work/flutter/bin"
-export PATH="$PATH":"$HOME/.pub-cache/bin"  # flutterfire
+export PATH="$PATH:$HOME/work/flutter/bin"
+export PATH="$PATH:$HOME/.pub-cache/bin"  # flutterfire
